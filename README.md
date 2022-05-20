@@ -1,2 +1,2 @@
 # board-game-collector
-Ubiquitous lab project
+Kotlin android project for ubiquitous classes

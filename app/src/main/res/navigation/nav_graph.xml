@@ -12,12 +12,36 @@
         <action
             android:id="@+id/navigateToConfig"
             app:destination="@id/configFragment" />
+        <action
+            android:id="@+id/navigateToGames"
+            app:destination="@id/gamesFragment" />
+        <action
+            android:id="@+id/navigateToExtras"
+            app:destination="@id/extrasFragment" />
     </fragment>
     <fragment
         android:id="@+id/configFragment"
         android:name="com.example.board_game_collector.ConfigFragment"
         android:label="fragment_config"
         tools:layout="@layout/fragment_config" >
+        <action
+            android:id="@+id/navigateToDashboard"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/gamesFragment"
+        android:name="com.example.board_game_collector.GamesFragment"
+        android:label="fragment_games"
+        tools:layout="@layout/fragment_games" >
+        <action
+            android:id="@+id/navigateToDashboard"
+            app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/extrasFragment"
+        android:name="com.example.board_game_collector.ExtrasFragment"
+        android:label="fragment_extras"
+        tools:layout="@layout/fragment_extras" >
         <action
             android:id="@+id/navigateToDashboard"
             app:destination="@id/dashboardFragment" />

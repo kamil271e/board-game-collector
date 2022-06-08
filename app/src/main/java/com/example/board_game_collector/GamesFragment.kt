@@ -23,7 +23,7 @@ class GamesFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_games, container, false)
         loadBundle()
         loadBindings(view)
-        //synchronize()
+        synchronize()
         return view
     }
 
@@ -43,8 +43,8 @@ class GamesFragment : Fragment() {
     }
 
     private fun synchronize(){
-        //dd.downloadData(username, context?.filesDir.toString(), true)
+        dd.downloadData(username, context?.filesDir.toString(), true)
         Thread.sleep(1_500)
-        //dd.XMLtoDB(context?.filesDir.toString())
+        dd.XMLtoDB(context?.filesDir.toString(), context)
     }
 }

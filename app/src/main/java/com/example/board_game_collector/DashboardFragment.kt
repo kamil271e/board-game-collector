@@ -48,6 +48,41 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         binding.extras.setOnClickListener{
             Navigation.findNavController(view).navigate(R.id.navigateToExtras, bundle)
         }
+        binding.syncBtn.setOnClickListener {
+            synchronize()
+            //bundle = bundleOf("lodedData" to load())
+            Toast.makeText(context, "Synchronizacja zakończona", Toast.LENGTH_LONG).show()
+        }
         binding.helloTV.text = "Witaj $username"
+    }
+
+    private fun synchronize(){
+        val dd = DataDownloader()
+        dd.downloadData(username, context?.filesDir.toString(), true)
+        Thread.sleep(1_500)
+        dd.XMLtoDB(context?.filesDir.toString(), context)
+        val dbHandler = MyDBHandler(context, this.toString(), null, 1)
+        //Log.i("ABCDcontext", context.toString())
+        //dbHandler.getGames()
+        dbHandler.displayDB()
+    }
+
+    private fun load(): MutableList<MutableList<String>> {
+        val o: MutableList<String> = mutableListOf()
+        val t: MutableList<String> = mutableListOf()
+        val r: MutableList<String> = mutableListOf()
+        val dh = MyDBHandler(context, this.toString(), null, 1)
+        val c = dh.getGames()
+        c.moveToFirst()
+        var i = 0
+        while(!c.isAfterLast){
+            o.add(i.toString())
+            t.add("${c.getString(1)} ${c.getString(2)}")
+            r.add(c.getString(3))
+            i++
+            c.moveToNext()
+        }
+        dh.closeDB()
+        return mutableListOf(o, t, r)
     }
 }

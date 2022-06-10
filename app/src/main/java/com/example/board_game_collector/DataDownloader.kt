@@ -153,7 +153,10 @@ class DataDownloader{
             games.add(g)
         }
 
-        val dbHandler: MyDBHandler = MyDBHandler(context, this.toString(), null, 1)
+        val dbHandler = MyDBHandler(context, this.toString(), null, 1)
+        dbHandler.clearGames()
         dbHandler.loadGames(games)
+        //dbHandler.displayDB()
+        dbHandler.closeDB()
     }
 }

@@ -43,7 +43,6 @@ class ConfigFragment : Fragment() {
         binding = FragmentConfigBinding.bind(view)
         binding.loginBtn.setOnClickListener{
             userName = binding.username.text.toString()
-            Log.i("ABCDUsername", userName)
             if (userName == ""){
                 Toast.makeText(context, "Wpisz nazwę użytkownika", Toast.LENGTH_SHORT).show()
             }

@@ -125,8 +125,18 @@ class DataDownloader{
                             val node = children.item(j)
                             if (node is Element) {
                                 when (node.nodeName) {
-                                    "name" -> titles.add(node.textContent)
-                                    "yearpublished" -> years.add(node.textContent)
+                                    "name" -> {
+                                        if (titles.size > years.size){
+                                            years.add("0")
+                                        }
+                                        titles.add(node.textContent)
+                                        //Log.i("abcdebug", node.textContent.toString())
+                                    }
+                                    "yearpublished" -> {
+                                        years.add(node.textContent)
+                                        //Log.i("abcdebug", node.textContent.toString())
+                                    }
+
                                 }
                             }
                         }
@@ -152,7 +162,6 @@ class DataDownloader{
             }
             games.add(g)
         }
-
         val dbHandler = MyDBHandler(context, this.toString(), null, 1)
         dbHandler.clearGames()
         dbHandler.loadGames(games)

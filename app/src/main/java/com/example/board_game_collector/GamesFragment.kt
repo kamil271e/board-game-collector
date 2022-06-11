@@ -1,5 +1,6 @@
 package com.example.board_game_collector
 
+import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -20,6 +21,12 @@ class GamesFragment : Fragment() {
     private var ld: MutableList<MutableList<String>> = mutableListOf()
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
+    private var con: Context? = null
+
+    override fun onAttach(context: Context) {
+        super.onAttach(context)
+        con = context
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,7 +38,7 @@ class GamesFragment : Fragment() {
         loadBindings(view)
         layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
-        adapter = RecyclerAdapter(this.findNavController())
+        adapter = RecyclerAdapter(getGames())
         binding.recyclerView.adapter = adapter
         return view
     }
@@ -52,5 +59,24 @@ class GamesFragment : Fragment() {
         binding.exit.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.navigateToDashboard, bundle)
         }
+    }
+
+    private fun getGames(): MutableList<MutableList<String>> {
+        val o: MutableList<String> = mutableListOf()
+        val t: MutableList<String> = mutableListOf()
+        val r: MutableList<String> = mutableListOf()
+        val dh = MyDBHandler(con, this.toString(), null, 1)
+        val c = dh.getGames()
+        c.moveToFirst()
+        var i = 1
+        while(!c.isAfterLast){
+            o.add(i.toString())
+            t.add("${c.getString(1)} ${c.getString(2)}")
+            r.add(c.getString(3))
+            i++
+            c.moveToNext()
+        }
+        dh.closeDB()
+        return mutableListOf(o, t, r)
     }
 }

@@ -51,13 +51,15 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
     }
 
     private fun addGame(game: Game){
-        val values = ContentValues().apply {
-            put(COLUMN_ID, game.id)
-            put(COLUMN_TITLE, game.title)
-            put(COLUMN_RANKING, game.ranking)
-            put(COLUMN_YEAR, game.year)
-        }
-        db.insert(TABLE_GAMES, null, values)
+        try{
+            val values = ContentValues().apply {
+                put(COLUMN_ID, game.id)
+                put(COLUMN_TITLE, game.title)
+                put(COLUMN_RANKING, game.ranking)
+                put(COLUMN_YEAR, game.year)
+            }
+            db.insert(TABLE_GAMES, null, values)
+        }catch (e: Exception){}
     }
 
     @RequiresApi(Build.VERSION_CODES.O)

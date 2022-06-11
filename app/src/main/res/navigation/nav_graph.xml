@@ -36,6 +36,9 @@
         <action
             android:id="@+id/navigateToDashboard"
             app:destination="@id/dashboardFragment" />
+        <action
+            android:id="@+id/navigateToHistory"
+            app:destination="@id/historyFragment" />
     </fragment>
     <fragment
         android:id="@+id/extrasFragment"
@@ -45,5 +48,14 @@
         <action
             android:id="@+id/navigateToDashboard"
             app:destination="@id/dashboardFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/historyFragment"
+        android:name="com.example.board_game_collector.HistoryFragment"
+        android:label="fragment_history"
+        tools:layout="@layout/fragment_history" >
+        <action
+            android:id="@+id/navigateToGames"
+            app:destination="@id/gamesFragment" />
     </fragment>
 </navigation>

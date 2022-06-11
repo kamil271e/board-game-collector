@@ -60,9 +60,5 @@ class DashboardFragment : Fragment(R.layout.fragment_dashboard) {
         dd.downloadData(username, context?.filesDir.toString(), true)
         Thread.sleep(1_500)
         dd.XMLtoDB(context?.filesDir.toString(), context)
-        //val dbHandler = MyDBHandler(context, this.toString(), null, 1)
-        //Log.i("ABCDcontext", context.toString())
-        //dbHandler.getGames()
-        //dbHandler.displayDB()
     }
 }

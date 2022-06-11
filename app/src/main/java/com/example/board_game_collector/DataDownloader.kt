@@ -3,7 +3,9 @@ package com.example.board_game_collector
 import android.annotation.SuppressLint
 import android.content.Context
 import android.os.AsyncTask
+import android.os.Build
 import android.util.Log
+import androidx.annotation.RequiresApi
 import org.w3c.dom.Document
 import org.w3c.dom.Element
 import org.w3c.dom.Node
@@ -12,9 +14,9 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
-import java.lang.Exception
 import java.net.MalformedURLException
 import java.net.URL
+import java.time.LocalDateTime
 import javax.xml.parsers.DocumentBuilderFactory
 
 class DataDownloader{
@@ -101,14 +103,17 @@ class DataDownloader{
         val dd = Downloader(username, filesDir, stats)
         dd.execute()
     }
+    @RequiresApi(Build.VERSION_CODES.O)
     fun XMLtoDB(path: String, context: Context?){
         val filename = "data.xml"
         val inDir = File(path, "XML")
         val games: MutableList<Game> = mutableListOf()
+        val histories: MutableList<History> = mutableListOf()
         val titles: MutableList<String> = mutableListOf()
         val years: MutableList<String> = mutableListOf()
         val ids: MutableList<String> = mutableListOf()
         val rankings: MutableList<String> = mutableListOf()
+        val curTime = LocalDateTime.now()
 
         if (inDir.exists()){
             val file = File(inDir, filename)
@@ -154,18 +159,26 @@ class DataDownloader{
                 }
             }
         }
+
         for (i in 0 until ids.size){
             val g: Game = try{
                 Game(ids[i].toLong(), titles[i], years[i].toInt(), rankings[i].toInt())
             }catch (e: Exception){
                 Game(ids[i].toLong(), titles[i], years[i].toInt(), 0)
             }
+            try{
+                val h = History(ids[i].toLong(), curTime, rankings[i].toInt())
+                histories.add(h)
+            }catch (e: Exception){}
             games.add(g)
         }
         val dbHandler = MyDBHandler(context, this.toString(), null, 1)
         dbHandler.clearGames()
         dbHandler.loadGames(games)
-        //dbHandler.displayDB()
+        dbHandler.clearHistories()
+        dbHandler.loadHistories(histories)
+        //dbHandler.displayGames()
+        //dbHandler.displayHistories()
         dbHandler.closeDB()
     }
 }

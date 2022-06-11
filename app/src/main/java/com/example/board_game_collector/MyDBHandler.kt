@@ -22,7 +22,7 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
         const val TABLE_GAMES = "games"
         const val COLUMN_TITLE = "title"
         const val COLUMN_YEAR = "year"
-        const val COLUMN_ID = "id"
+        const val COLUMN_ID = "game_id"
         const val COLUMN_RANKING = "ranking"
 
         const val TABLE_HISTORY = "history"
@@ -36,12 +36,10 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
                 "$COLUMN_RANKING INTEGER)"
 
         val CREATE_HIS_TABLE = "CREATE TABLE IF NOT EXISTS $TABLE_HISTORY (" +
-                "$COLUMN_ID LONG PRIMARY KEY, $COLUMN_RANKING_HIS INTEGER, $COLUMN_DATE DATE)"
+                "ID INTEGER PRIMARY KEY AUTOINCREMENT, $COLUMN_ID LONG, $COLUMN_RANKING_HIS INTEGER, $COLUMN_DATE DATE)"
 
-        Log.i("ABCD-here", "tuta")
         db.execSQL(CREATE_GAMES_TABLE)
         db.execSQL(CREATE_HIS_TABLE)
-        Log.i("ABCD_DATABASE", "CREATED SUCCESSFULLY")
     }
 
     override fun onUpgrade(db: SQLiteDatabase, p1: Int, p2: Int) {
@@ -64,13 +62,16 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
 
     @RequiresApi(Build.VERSION_CODES.O)
     fun addHistory(history: History){
-        val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM:SS.SSS")
-        val values = ContentValues().apply {
-            put(COLUMN_ID, history.id)
-            put(COLUMN_DATE, dateFormat.format(history.date))
-            put(COLUMN_RANKING_HIS, history.ranking)
+        try{
+            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM:SS.SSS")
+            val values = ContentValues().apply {
+                put(COLUMN_ID, history.id)
+                put(COLUMN_DATE, dateFormat.format(history.date))
+                put(COLUMN_RANKING_HIS, history.ranking)
+            }
+            db.insert(TABLE_HISTORY, null, values)
         }
-        db.insert(TABLE_HISTORY, null, values)
+        catch(e: Exception){}
     }
 
     fun loadGames(games: MutableList<Game>){
@@ -79,30 +80,40 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
         }
     }
 
-    fun loadHistory(){}
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun loadHistories(histories: MutableList<History>) {
+        for (h in histories){
+            addHistory(h)
+        }
+    }
 
     fun clearGames(){
         db.execSQL("DELETE FROM $TABLE_GAMES")
     }
 
-    fun clearHistory(){}
+    fun clearHistories(){
+        db.execSQL("DELETE FROM $TABLE_HISTORY")
+    }
 
-    @SuppressLint("Recycle")
-    fun displayDB(){
+    fun displayGames(){
         val gamesQuery = "SELECT * FROM $TABLE_GAMES WHERE $COLUMN_RANKING!=0"
-        val extrasQuery = "SELECT * FROM $TABLE_GAMES WHERE $COLUMN_RANKING==0"
-        var c: Cursor = db.rawQuery(gamesQuery, null)
+        val c: Cursor = db.rawQuery(gamesQuery, null)
         c.moveToFirst()
         while(!c.isAfterLast){
-            Log.i("ABCD+table", "${c.getString(0)} ${c.getString(1)} ${c.getString(2)} ${c.getString(3)}")
+            Log.i("Game", "${c.getString(0)} ${c.getString(1)} ${c.getString(2)} ${c.getString(3)}")
             c.moveToNext()
         }
-        /*c.close()
-        c = db.rawQuery(extrasQuery, null)
+        c.close()
+    }
+
+    fun displayHistories(){
+        val histQuery = "SELECT * FROM $TABLE_HISTORY"
+        val c: Cursor = db.rawQuery(histQuery, null)
+        c.moveToFirst()
         while(!c.isAfterLast){
-            Log.i("ABCD+table", "${c.getString(0)} ${c.getString(1)} ${c.getString(2)}")
+            Log.i("History", "${c.getString(0)} ${c.getString(1)} ${c.getString(2)} ${c.getString(3)}")
             c.moveToNext()
-        }*/
+        }
         c.close()
     }
 
@@ -116,5 +127,9 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
 
     fun getExtras(): Cursor {
         return db.rawQuery("SELECT * FROM $TABLE_GAMES WHERE $COLUMN_RANKING=0", null)
+    }
+
+    fun getHistories(id: Long): Cursor {
+        return db.rawQuery("SELECT * FROM $TABLE_HISTORY WHERE $COLUMN_ID = $id", null)
     }
 }

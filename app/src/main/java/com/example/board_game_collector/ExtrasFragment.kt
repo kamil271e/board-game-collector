@@ -7,6 +7,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.navigation.Navigation
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.board_game_collector.databinding.FragmentExtrasBinding
@@ -28,7 +29,7 @@ class ExtrasFragment : Fragment() {
         loadBindings(view)
         layoutManager = LinearLayoutManager(context)
         binding.recyclerView.layoutManager = layoutManager
-        adapter = RecyclerAdapter(getExtras())
+        adapter = RecyclerAdapter(getExtras(), this.findNavController(), username, false)
         binding.recyclerView.adapter = adapter
         return view
     }

@@ -59,7 +59,7 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
                 put(COLUMN_YEAR, game.year)
             }
             db.insert(TABLE_GAMES, null, values)
-        }catch (e: Exception){}
+        }catch (e: Exception){ }
     }
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -112,5 +112,9 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
 
     fun getGames(): Cursor {
         return db.rawQuery("SELECT * FROM $TABLE_GAMES WHERE $COLUMN_RANKING!=0", null)
+    }
+
+    fun getExtras(): Cursor {
+        return db.rawQuery("SELECT * FROM $TABLE_GAMES WHERE $COLUMN_RANKING=0", null)
     }
 }

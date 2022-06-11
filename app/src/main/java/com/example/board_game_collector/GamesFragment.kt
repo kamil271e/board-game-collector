@@ -18,15 +18,8 @@ class GamesFragment : Fragment() {
     private lateinit var binding: FragmentGamesBinding
     private lateinit var username: String
     private lateinit var bundle : Bundle
-    private var ld: MutableList<MutableList<String>> = mutableListOf()
     private var layoutManager: RecyclerView.LayoutManager? = null
     private var adapter: RecyclerView.Adapter<RecyclerAdapter.ViewHolder>? = null
-    private var con: Context? = null
-
-    override fun onAttach(context: Context) {
-        super.onAttach(context)
-        con = context
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -47,9 +40,6 @@ class GamesFragment : Fragment() {
         if (!arguments?.getString("username").isNullOrBlank()){
             username = arguments?.getString("username").toString()
         }
-        /*if (!arguments?.getBundle("loadData")?.isEmpty!!){
-            ld = arguments?.getBundle("loadData")
-        }*/
         bundle = bundleOf("username" to username)
     }
 
@@ -65,13 +55,15 @@ class GamesFragment : Fragment() {
         val o: MutableList<String> = mutableListOf()
         val t: MutableList<String> = mutableListOf()
         val r: MutableList<String> = mutableListOf()
-        val dh = MyDBHandler(con, this.toString(), null, 1)
+        val dh = MyDBHandler(context, this.toString(), null, 1)
         val c = dh.getGames()
         c.moveToFirst()
         var i = 1
         while(!c.isAfterLast){
             o.add(i.toString())
-            t.add("${c.getString(1)} ${c.getString(2)}")
+            var yr = c.getString(2)
+            if (yr == "0") yr = ""
+            t.add("${c.getString(1)} $yr")
             r.add(c.getString(3))
             i++
             c.moveToNext()

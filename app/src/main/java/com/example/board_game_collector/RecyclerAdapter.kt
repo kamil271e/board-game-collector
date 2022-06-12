@@ -9,15 +9,19 @@ import androidx.core.os.bundleOf
 import androidx.navigation.NavController
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
-import com.example.board_game_collector.databinding.FragmentHistoryBinding
 
-class RecyclerAdapter(ld: MutableList<MutableList<String>>, private val navController: NavController, username: String, specType: Boolean): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
-    private var v1 = ld[0]
-    private var v2 = ld[1]
-    private var v3 = ld[2]
-    private var v4 = ld[3]
+class RecyclerAdapter(viewData: MutableList<MutableList<String>>, private val navController: NavController,
+                      username: String, time: String, games: String, extras: String, isGame: Boolean): RecyclerView.Adapter<RecyclerAdapter.ViewHolder>() {
+    private var v1 = viewData[0] // column 1
+    private var v2 = viewData[1]
+    private var v3 = viewData[2]
+    private var v4 = viewData[3]
     private var usr = username
-    private var type = specType
+    private var t = time
+    private var g = games
+    private var e = extras
+    private var isgame = isGame
+    private var bundle = bundleOf()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerAdapter.ViewHolder {
         val v = LayoutInflater.from(parent.context).inflate(R.layout.card_layout, parent, false)
@@ -25,9 +29,9 @@ class RecyclerAdapter(ld: MutableList<MutableList<String>>, private val navContr
     }
 
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
-        holder.ordNum.text = v1[position]
-        holder.titleYear.text = v2[position]
-        holder.ranking.text = v3[position]
+        holder.tv1.text = v1[position]
+        holder.tv2.text = v2[position]
+        holder.tv3.text = v3[position]
     }
 
     override fun getItemCount(): Int {
@@ -35,23 +39,30 @@ class RecyclerAdapter(ld: MutableList<MutableList<String>>, private val navContr
     }
 
     inner class ViewHolder(itemView: View): RecyclerView.ViewHolder(itemView){
-        var ordNum: TextView
-        var titleYear: TextView
-        var ranking: TextView
+        var tv1: TextView
+        var tv2: TextView
+        var tv3: TextView
 
         init {
-            ordNum = itemView.findViewById(R.id.ordNum)
-            titleYear = itemView.findViewById(R.id.titleYear)
-            ranking = itemView.findViewById(R.id.rank)
+            tv1 = itemView.findViewById(R.id.tv1)
+            tv2 = itemView.findViewById(R.id.tv2)
+            tv3 = itemView.findViewById(R.id.tv3)
 
-            if (type){
+            if (isgame){
                 itemView.setOnClickListener {
                     val pos: Int = adapterPosition
                     Toast.makeText(itemView.context, v2[pos], Toast.LENGTH_LONG).show()
-                    val bundle = bundleOf("username_id" to "$usr ${v4[pos]}")
+                    setBundle(v4[pos])
                     navController.navigate(R.id.navigateToHistory, bundle)
                 }
             }
         }
+    }
+    fun setBundle(id: String){
+        bundle.putString("username", usr)
+        bundle.putString("id", id)
+        bundle.putString("time", t)
+        bundle.putString("games", g)
+        bundle.putString("extras", e)
     }
 }

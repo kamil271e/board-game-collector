@@ -104,7 +104,7 @@ class DataDownloader{
         dd.execute()
     }
     @RequiresApi(Build.VERSION_CODES.O)
-    fun XMLtoDB(path: String, context: Context?){
+    fun XMLtoDB(path: String, context: Context?): List<Int> {
         val filename = "data.xml"
         val inDir = File(path, "XML")
         val games: MutableList<Game> = mutableListOf()
@@ -173,12 +173,16 @@ class DataDownloader{
             games.add(g)
         }
         val dbHandler = MyDBHandler(context, this.toString(), null, 1)
+        dbHandler.createTables()
         dbHandler.clearGames()
         dbHandler.loadGames(games)
         dbHandler.clearHistories()
         dbHandler.loadHistories(histories)
         //dbHandler.displayGames()
         //dbHandler.displayHistories()
+        val g = dbHandler.amountGames()
+        val e = dbHandler.amountExtras()
         dbHandler.closeDB()
+        return listOf(g,e)
     }
 }

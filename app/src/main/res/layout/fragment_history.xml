@@ -37,7 +37,7 @@
         tools:layout_editor_absoluteX="1dp">
 
         <TextView
-            android:id="@+id/ordNum"
+            android:id="@+id/tv1"
             android:layout_width="80dp"
             android:layout_height="match_parent"
             android:text="LP."
@@ -47,7 +47,7 @@
             tools:layout_editor_absoluteY="6dp" />
 
         <TextView
-            android:id="@+id/titleYear"
+            android:id="@+id/tv2"
             android:layout_width="160dp"
             android:layout_height="match_parent"
             android:layout_marginStart="80dp"
@@ -55,20 +55,20 @@
             android:textSize="25dp"
             android:textAlignment="center"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/ordNum"
+            app:layout_constraintLeft_toRightOf="@+id/tv1"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/rank"
+            android:id="@+id/tv3"
             android:layout_width="150dp"
             android:layout_height="match_parent"
             android:text="Ranking"
             android:textAlignment="center"
             android:textSize="25dp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/titleYear"
-            app:layout_constraintStart_toEndOf="@+id/titleYear"
+            app:layout_constraintLeft_toRightOf="@+id/tv2"
+            app:layout_constraintStart_toEndOf="@+id/tv2"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 

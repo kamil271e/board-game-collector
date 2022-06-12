@@ -7,64 +7,117 @@
     android:layout_height="match_parent"
     tools:context=".DashboardFragment">
 
-    <Button
-        android:id="@+id/logoutBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Wyloguj"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882" />
-
-    <Button
-        android:id="@+id/games"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="64dp"
-        android:text="Gry"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/extras"
-        app:layout_constraintHorizontal_bias="0.225"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.499" />
-
-    <Button
-        android:id="@+id/extras"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="68dp"
-        android:text="Dodatki"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/helloTV"
-        android:layout_width="330dp"
-        android:layout_height="104dp"
-        android:text="Witaj!"
+        android:id="@+id/extrasTV"
+        android:layout_width="326dp"
+        android:layout_height="64dp"
+        android:text="Liczba dodatków: "
         android:textAlignment="center"
         android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/helloTV"
+        app:layout_constraintVertical_bias="0.132" />
+
+    <Button
+        android:id="@+id/logoutBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:text="Wyloguj"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/helloTV"
+        android:layout_width="326dp"
+        android:layout_height="64dp"
+        android:layout_marginTop="56dp"
+        android:text="Witaj"
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.378" />
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/gamesTV"
+        android:layout_width="326dp"
+        android:layout_height="64dp"
+        android:text="Liczba gier: "
+        android:textAlignment="center"
+        android:textSize="30dp"
+        app:layout_constraintBottom_toTopOf="@+id/extrasTV"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/helloTV"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/syncBtn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="51dp"
+        android:layout_marginTop="340dp"
+        android:layout_marginEnd="76dp"
         android:text="Synchronizuj"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/games"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/games"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="76dp"
+        android:layout_marginTop="340dp"
+        android:text="Gry"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/datesTV"
+        android:layout_width="339dp"
+        android:layout_height="88dp"
+        android:text="Ostatnia synchronizacja:  "
+        android:textAlignment="center"
+        android:textSize="30dp"
         app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/games"
+        app:layout_constraintTop_toBottomOf="@+id/extrasTV"
         app:layout_constraintVertical_bias="0.0" />
+
+    <Button
+        android:id="@+id/extras"
+        android:layout_width="119dp"
+        android:layout_height="45dp"
+        android:layout_marginStart="76dp"
+        android:text="Dodatki"
+        app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/games"
+        app:layout_constraintVertical_bias="0.021" />
+
+    <Button
+        android:id="@+id/clearAll"
+        android:layout_width="120dp"
+        android:layout_height="45dp"
+        android:layout_marginEnd="76dp"
+        android:text="Wyczyść"
+        app:layout_constraintBottom_toTopOf="@+id/logoutBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.4"
+        app:layout_constraintStart_toEndOf="@+id/extras"
+        app:layout_constraintTop_toBottomOf="@+id/syncBtn"
+        app:layout_constraintVertical_bias="0.021" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

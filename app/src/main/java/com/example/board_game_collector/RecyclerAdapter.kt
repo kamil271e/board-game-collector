@@ -1,5 +1,6 @@
 package com.example.board_game_collector
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,9 +29,16 @@ class RecyclerAdapter(viewData: MutableList<MutableList<String>>, private val na
         return ViewHolder(v)
     }
 
+    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
         holder.tv1.text = v1[position]
-        holder.tv2.text = v2[position]
+        if (v2[position].split(".").size > 1){
+            val temp = v2[position].split(".")[0].split("T")
+            holder.tv2.text = "${temp[0]} ${temp[1].slice(0 until temp[1].length-3)}"
+
+        }else{
+            holder.tv2.text = v2[position]
+        }
         holder.tv3.text = v3[position]
     }
 
@@ -51,9 +59,11 @@ class RecyclerAdapter(viewData: MutableList<MutableList<String>>, private val na
             if (isgame){
                 itemView.setOnClickListener {
                     val pos: Int = adapterPosition
-                    Toast.makeText(itemView.context, v2[pos], Toast.LENGTH_LONG).show()
                     setBundle(v4[pos])
-                    navController.navigate(R.id.navigateToHistory, bundle)
+                    if (v1[pos] != ""){
+                        Toast.makeText(itemView.context, v2[pos], Toast.LENGTH_LONG).show()
+                        navController.navigate(R.id.navigateToHistory, bundle)
+                    }
                 }
             }
         }

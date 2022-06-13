@@ -176,7 +176,7 @@ class DataDownloader{
         dbHandler.createTables()
         dbHandler.clearGames()
         dbHandler.loadGames(games)
-        dbHandler.clearHistories()
+        // dbHandler.clearHistories()
         dbHandler.loadHistories(histories)
         //dbHandler.displayGames()
         //dbHandler.displayHistories()

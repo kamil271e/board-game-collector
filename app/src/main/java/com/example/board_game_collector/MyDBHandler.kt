@@ -76,10 +76,11 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
     @RequiresApi(Build.VERSION_CODES.O)
     fun addHistory(history: History){
         try{
-            val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM:SS.SSS")
+            //val dateFormat: DateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:MM:SS.SSS")
             val values = ContentValues().apply {
                 put(COLUMN_ID, history.id)
-                put(COLUMN_DATE, dateFormat.format(history.date))
+                put(COLUMN_DATE, history.date.toString())
+                //Log.i("abcdate", history.date.toString())
                 put(COLUMN_RANKING_HIS, history.ranking)
             }
             db.insert(TABLE_HISTORY, null, values)
@@ -163,6 +164,7 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
 
     fun closeDB(){
         db.close()
+        Log.i("DB_CLOSE", "DB SUCCESSFULLY CLOSED")
     }
 
     fun clearAll(){

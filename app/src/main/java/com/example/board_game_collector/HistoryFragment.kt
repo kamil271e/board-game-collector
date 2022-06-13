@@ -87,7 +87,6 @@ class HistoryFragment : Fragment() {
                 r.add(c.getString(2))
                 ids.add(c.getString(1))
                 i++
-                Log.i("abcd", "$i ${c.getString(2)} ${c.getString(3)}")
                 c.moveToNext()
             }
             dh.closeDB()

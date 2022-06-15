@@ -32,11 +32,11 @@ class RecyclerAdapter(viewData: MutableList<MutableList<String>>, private val na
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: RecyclerAdapter.ViewHolder, position: Int) {
         holder.tv1.text = v1[position]
-        if (v2[position].split(".").size > 1){
+        try{
             val temp = v2[position].split(".")[0].split("T")
             holder.tv2.text = "${temp[0]} ${temp[1].slice(0 until temp[1].length-3)}"
-
-        }else{
+        }
+        catch (e:Exception){
             holder.tv2.text = v2[position]
         }
         holder.tv3.text = v3[position]
@@ -68,6 +68,7 @@ class RecyclerAdapter(viewData: MutableList<MutableList<String>>, private val na
             }
         }
     }
+
     fun setBundle(id: String){
         bundle.putString("username", usr)
         bundle.putString("id", id)
@@ -75,4 +76,5 @@ class RecyclerAdapter(viewData: MutableList<MutableList<String>>, private val na
         bundle.putString("games", g)
         bundle.putString("extras", e)
     }
+
 }

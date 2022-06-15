@@ -5,7 +5,8 @@
     android:id="@+id/frameLayout3"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ExtrasFragment" >
+    tools:context=".ExtrasFragment"
+    android:background="@color/gray">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/constraintLayout"
@@ -47,7 +48,7 @@
 
         <TextView
             android:id="@+id/tv2"
-            android:layout_width="160dp"
+            android:layout_width="150dp"
             android:layout_height="match_parent"
             android:layout_marginStart="80dp"
             android:text="Tytuł"

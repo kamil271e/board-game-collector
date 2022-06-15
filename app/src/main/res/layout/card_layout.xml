@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/card_view"
     android:layout_margin="5dp"
-    app:cardBackgroundColor="@color/gray"
+    app:cardBackgroundColor="@color/black"
     app:cardCornerRadius="12dp"
     app:cardElevation="3dp"
     app:contentPadding="4dp">
@@ -24,17 +24,19 @@
             android:textAlignment="center"
             android:textSize="15sp"
             app:layout_constraintTop_toTopOf="parent"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints"
+            android:textColor="@color/white">
         </TextView>
 
         <TextView
             android:id="@+id/tv2"
-            android:layout_width="220dp"
+            android:layout_width="200dp"
             android:layout_height="60dp"
             android:textSize="15sp"
             android:textAlignment="center"
             app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintLeft_toRightOf="@+id/tv1">
+            app:layout_constraintLeft_toRightOf="@+id/tv1"
+            android:textColor="@color/white">
         </TextView>
 
         <TextView
@@ -45,7 +47,8 @@
             android:textSize="15sp"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toRightOf="@+id/tv2"
-            tools:ignore="MissingConstraints">
+            tools:ignore="MissingConstraints"
+            android:textColor="@color/white">
         </TextView>
 
     </androidx.constraintlayout.widget.ConstraintLayout>

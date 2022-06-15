@@ -152,7 +152,7 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
             var i = 0
             c.moveToFirst()
             while(!c.isAfterLast){
-                Log.i("Game", "${c.getString(0)} ${c.getString(1)} ${c.getString(2)} ${c.getString(3)}")
+                //Log.i("Addon", "${c.getString(0)} ${c.getString(1)} ${c.getString(2)} ${c.getString(3)}")
                 c.moveToNext()
                 i++
             }
@@ -164,13 +164,11 @@ class MyDBHandler(context: Context?, name: String?, factory: SQLiteDatabase.Curs
 
     fun closeDB(){
         db.close()
-        Log.i("DB_CLOSE", "DB SUCCESSFULLY CLOSED")
     }
 
     fun clearAll(){
         db.execSQL("DROP TABLE IF EXISTS $TABLE_GAMES")
         db.execSQL("DROP TABLE IF EXISTS $TABLE_HISTORY")
-        Log.i("DB_info", "Tables dropped")
     }
 
     fun getGames(): Cursor {

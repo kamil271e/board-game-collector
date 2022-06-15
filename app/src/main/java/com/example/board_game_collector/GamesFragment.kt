@@ -38,6 +38,7 @@ class GamesFragment : Fragment() {
         binding.recyclerView.layoutManager = layoutManager
         adapter = RecyclerAdapter(getGames(), this.findNavController(), username, t, g, e, true)
         binding.recyclerView.adapter = adapter
+        rapidScrollHandle()
         return view
     }
 
@@ -97,5 +98,11 @@ class GamesFragment : Fragment() {
             return mutableListOf(o, t, r, ids)
         }catch (e: Exception) {}
        return mutableListOf(mutableListOf(""),mutableListOf(""),mutableListOf(""),mutableListOf(""))
+    }
+
+    private fun rapidScrollHandle(){
+        /*binding.recyclerView.addOnScrollListener{
+
+        }*/
     }
 }
